@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, session
 from models import (
     db, User, Transaction, BankAccount, ReferralCommission,
-    TransactionStatus, TransactionType, UserStatus
+    TransactionStatus, TransactionType, UserStatus, PooledWallet
 )
 from auth.utils import admin_required
 from datetime import datetime
@@ -114,3 +114,30 @@ def referral_commission():
 
     commission_rates = ReferralCommission.query.order_by(ReferralCommission.level).all()
     return render_template('admin/referral_commission.html', commission_rates=commission_rates)
+
+
+@admin_bp.route('/wallets/add', methods=['POST'])
+@admin_required
+def add_wallet():
+    """Add new wallet to pool"""
+    data = request.get_json()
+    address = data.get('address')
+
+    if not address:
+        return jsonify({'error': 'Address is required'}), 400
+
+    try:
+        wallet = PooledWallet(
+            address=address,
+            created_by=session['user_id']
+        )
+        db.session.add(wallet)
+        db.session.commit()
+
+        return jsonify({
+            'message': 'Wallet added successfully',
+            'wallet_id': wallet.id
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Failed to add wallet'}), 500

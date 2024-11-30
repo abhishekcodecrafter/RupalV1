@@ -134,3 +134,30 @@ class OTP(db.Model):
     purpose = db.Column(db.String(20), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     is_verified = db.Column(db.Boolean, default=False)
+
+
+class WalletStatus(Enum):
+    AVAILABLE = 'AVAILABLE'
+    IN_USE = 'IN_USE'
+    DISABLED = 'DISABLED'
+
+class PooledWallet(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    address = db.Column(db.String(100), unique=True, nullable=False)
+    status = db.Column(db.Enum(WalletStatus), default=WalletStatus.AVAILABLE)
+    last_used_at = db.Column(db.DateTime)
+    last_checked_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'))
+    total_assignments = db.Column(db.Integer, default=0)
+
+class WalletAssignment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    wallet_id = db.Column(db.Integer, db.ForeignKey('pooled_wallet.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    assigned_at = db.Column(db.DateTime, default=datetime.utcnow)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
+    expected_amount = db.Column(db.Float, nullable=True)  # Optional expected deposit amount
+
+    wallet = db.relationship('PooledWallet', backref='assignments')

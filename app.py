@@ -2,6 +2,7 @@ from flask import Flask, render_template
 
 from admin.routes import admin_bp
 from config import Config
+from deposit import deposit_bp
 from models import db
 from auth.routes import auth_bp
 from bank.routes import bank_bp
@@ -28,6 +29,7 @@ def create_app(config_class=Config):
     app.register_blueprint(referral_bp, url_prefix='/referral')
     app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.register_blueprint(deposit_bp, url_prefix='/deposit')
 
     # Create database tables
     with app.app_context():

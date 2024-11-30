@@ -35,7 +35,7 @@ class Config:
     BANK_BRANCH = 'Main Branch'
 
     # Platform Wallet
-    PLATFORM_WALLET_ADDRESS = os.getenv('PLATFORM_WALLET_ADDRESS')
+    PLATFORM_WALLET_ADDRESS = "THdwjNJM1uYMMCBYWyVPnqX5VffoJARYAh"
 
     # TRON Network
     TRON_API_URL = 'https://api.trongrid.io'

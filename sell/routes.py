@@ -50,7 +50,7 @@ def initiate():
         return redirect(url_for('sell.index'))
 
     try:
-        rate = get_current_rate()
+        rate = get_current_rate("gg")
         amount_inr = amount_usdt * rate
 
         transaction = Transaction(
@@ -74,5 +74,6 @@ def initiate():
 
     except Exception as e:
         db.session.rollback()
+        print(e)
         flash('Error processing sell order', 'error')
         return redirect(url_for('sell.index'))

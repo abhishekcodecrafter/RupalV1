@@ -3,14 +3,57 @@
 {% block title %}Buy USDT - Enter Amount{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Enter Buy Amount</h1>
-    <form method="POST">
-        <div class="form-group">
-            <label for="amount_inr">Amount (INR)</label>
-            <input type="number" id="amount_inr" name="amount_inr" min="{{ config.MIN_BUY_INR }}" step="1" required>
+<body class="bg-white min-h-screen">
+
+    <!-- Header -->
+    <header class="px-4 py-4 flex items-center">
+        <button class="p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <h1 class="text-xl font-semibold ml-4">Enter Buy Amount</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-4 pt-6">
+        <div class="container">
+            <div class="rate-info mb-6">
+                <h3 class="text-gray-900 text-xl font-semibold">Enter the Amount in INR</h3>
+            </div>
+
+            <!-- Form for Entering Amount -->
+            <div class="space-y-4 mb-6">
+                <div class="bg-indigo-500 rounded-2xl p-4">
+                    <form method="POST">
+                        <div class="flex justify-between items-center">
+                            <div class="w-full">
+                                <label for="amount_inr" class="text-indigo-100 text-sm mb-1">Amount (INR)</label>
+                                <input type="number" id="amount_inr" name="amount_inr" min="{{ config.MIN_BUY_INR }}" step="1" required
+    class="bg-transparent text-white text-2xl font-semibold w-full focus:outline-none p-2 rounded-lg border-2 border-white mt-4 focus:border-white focus:ring-2 focus:ring-white" />
+
+
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-white text-indigo-500 py-4 rounded-full text-lg font-medium hover:bg-gray-200 transition-colors mt-6">
+                            Continue
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Continue</button>
-    </form>
-</div>
+    </main>
+
+    <script>
+        // Handle input changes and format numbers
+        const input = document.querySelector('#amount_inr');
+        input.addEventListener('input', (e) => {
+            let value = e.target.value;
+            if (value === '') value = '0.00';
+            // Format to 2 decimal places
+            // e.target.value = parseFloat(value).toFixed(2);
+        });
+    </script>
+
+</body>
 {% endblock %}

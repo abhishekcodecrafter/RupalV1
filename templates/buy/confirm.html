@@ -3,32 +3,100 @@
 {% block title %}Confirm Buy Order{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Confirm Buy Order</h1>
-    <div class="transaction-details">
-        <p>Amount: {{ transaction.amount_inr }} INR</p>
-        <p>USDT: {{ transaction.amount_usdt }}</p>
-        <p>Rate: {{ transaction.exchange_rate }}</p>
+<div class="container mx-auto px-4 py-6">
+    <header class="px-4 py-4 flex items-center">
+        <button class="p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <h1 class="text-xl font-semibold ml-4">Confirm Buy Order</h1>
+    </header>
+
+    <!-- Transaction Details -->
+    <div class="bg-white rounded-xl p-4 mb-6">
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Amount</span>
+                <span class="text-gray-900 font-medium">{{ transaction.amount_inr }} INR</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">USDT</span>
+                <span class="text-gray-900 font-medium">{{ "%.2f"|format(transaction.amount_usdt) }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Rate</span>
+                <span class="text-gray-900 font-medium">{{ transaction.exchange_rate }}</span>
+            </div>
+        </div>
     </div>
 
-    <div class="bank-details">
-        <h3>Bank Details</h3>
-        <p>Account Name: {{ bank_details.account_name }}</p>
-        <p>Account Number: {{ bank_details.account_number }}</p>
-        <p>IFSC Code: {{ bank_details.ifsc_code }}</p>
-        <p>Bank: {{ bank_details.bank_name }}</p>
-    </div>
 
+     <!-- Bank Details -->
+    <!-- <div class="bg-white rounded-xl p-4 mb-6">
+        <h3 class="text-lg font-semibold">Bank Details</h3>
+        <div class="space-y-2">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Account Name</span>
+                <span class="text-gray-900 font-medium">{{ bank_details.account_name }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Account Number</span>
+                <span class="text-gray-900 font-medium">{{ bank_details.account_number }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">IFSC Code</span>
+                <span class="text-gray-900 font-medium">{{ bank_details.ifsc_code }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Bank</span>
+                <span class="text-gray-900 font-medium">{{ bank_details.bank_name }}</span>
+            </div>
+        </div>
+    </div> -->
+
+
+    <!-- Payment Form -->
     <form method="POST" enctype="multipart/form-data" action="{{ url_for('buy.confirm', transaction_id=transaction.id) }}">
-        <div class="form-group">
-            <label for="reference_number">Payment Reference Number</label>
-            <input type="text" id="reference_number" name="reference_number" required>
+        <!-- Reference Number -->
+        <div class="mb-6">
+            <label for="reference_number" class="block text-gray-700 font-medium mb-2">Payment Reference Number</label>
+            <input type="text" id="reference_number" name="reference_number" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
         </div>
-        <div class="form-group">
-            <label for="payment_proof">Upload Payment Proof</label>
-            <input type="file" id="payment_proof" name="payment_proof" required>
+
+        <!-- Upload Payment Proof -->
+        <div class="mb-8">
+            <label for="payment_proof" class="upload-box rounded-xl p-4 flex items-center justify-center cursor-pointer border-2 border-dashed border-gray-300">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12"/>
+                    </svg>
+                    <span class="text-gray-400">Upload photo of deposit slip</span>
+                </div>
+                <input type="file" id="payment_proof" name="payment_proof" required class="hidden" onchange="displayFileName()">
+            </label>
+
+            <!-- Display selected file name -->
+            <div id="file-name" class="mt-4 text-gray-700"></div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-indigo-500 text-white py-4 rounded-full text-lg font-medium hover:bg-indigo-600 transition-colors mb-8">
+            Confirm
+        </button>
     </form>
 </div>
+
+<script>
+    function displayFileName() {
+        const fileInput = document.getElementById('payment_proof');
+        const fileName = fileInput.files[0] ? fileInput.files[0].name : 'No file selected';
+        const fileNameDisplay = document.getElementById('file-name');
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.innerHTML = `File selected: ${fileName} (Attached)`;
+        } else {
+            fileNameDisplay.innerHTML = '';
+        }
+    }
+</script>
 {% endblock %}

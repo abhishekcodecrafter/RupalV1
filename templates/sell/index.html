@@ -3,22 +3,42 @@
 {% block title %}Sell USDT{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Sell USDT</h1>
-    <div class="rate-info">
-        <h3>Current Rate: {{ rate }} INR/USDT</h3>
-        <p>Available Balance: {{ current_user.wallet_balance }} USDT</p>
+<div class="container mx-auto px-4 py-6">
+    <header class="px-4 py-4 flex items-center">
+        <button class="p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <h1 class="text-xl font-semibold ml-4">Sell USDT</h1>
+    </header>
+
+    <!-- Rate and Balance Info -->
+    <div class="bg-white rounded-xl p-4 mb-6">
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Current Rate</span>
+                <span class="text-gray-900 font-medium">{{ rate }} INR/USDT</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Available Balance</span>
+                <span class="text-gray-900 font-medium">{{ current_user.wallet_balance }} USDT</span>
+            </div>
+        </div>
     </div>
 
-    <form method="POST" action="{{ url_for('sell.initiate') }}">
-        <div class="form-group">
-            <label for="amount_usdt">Amount (USDT)</label>
-            <input type="number" id="amount_usdt" name="amount_usdt" min="{{ config.MIN_SELL_USDT }}" step="0.01" required>
+    <!-- Sell Form -->
+    <form method="POST" action="{{ url_for('sell.initiate') }}" class="bg-white rounded-xl p-6">
+        <!-- Amount Input -->
+        <div class="mb-6">
+            <label for="amount_usdt" class="block text-gray-700 font-medium mb-2">Amount (USDT)</label>
+            <input type="number" id="amount_usdt" name="amount_usdt" min="{{ config.MIN_SELL_USDT }}" step="0.01" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
         </div>
 
-        <div class="form-group">
-            <label for="bank_account_id">Select Bank Account</label>
-            <select id="bank_account_id" name="bank_account_id" required>
+        <!-- Select Bank Account -->
+        <div class="mb-6">
+            <label for="bank_account_id" class="block text-gray-700 font-medium mb-2">Select Bank Account</label>
+            <select id="bank_account_id" name="bank_account_id" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 {% for account in bank_accounts %}
                 <option value="{{ account.id }}">
                     {{ account.bank_name }} - {{ account.account_number }}
@@ -27,11 +47,15 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Sell USDT</button>
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-indigo-500 text-white py-4 rounded-full text-lg font-medium hover:bg-indigo-600 transition-colors mb-8">
+            Sell USDT
+        </button>
     </form>
 
-    <div class="bank-accounts">
-        <a href="{{ url_for('bank.add_account') }}" class="btn btn-secondary">Add New Bank Account</a>
+    <!-- Add Bank Account Button -->
+    <div class="text-center">
+        <a href="{{ url_for('bank.add_account') }}" class="text-indigo-500 hover:text-indigo-600">Add New Bank Account</a>
     </div>
 </div>
 {% endblock %}

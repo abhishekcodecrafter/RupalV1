@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cash Deposit Invoice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .upload-box {
+            border: 2px dashed #E5E7EB;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <!-- Header -->
+    <header class="px-4 py-4 flex items-center">
+        <button class="p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <h1 class="text-xl font-semibold ml-4">Cash Deposit Invoice</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-4 pt-6">
+        <!-- Transaction Details -->
+        <div class="bg-white rounded-xl p-4 mb-6">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Token</span>
+                    <span class="text-gray-900 font-medium">300 USDT</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Transaction</span>
+                    <span class="text-gray-900 font-medium">PO345334221</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Amount</span>
+                    <span class="text-gray-900 font-medium">15000.00</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Bank Name</span>
+                    <span class="text-gray-900 font-medium">State Bank Of India</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Account Number</span>
+                    <span class="text-gray-900 font-medium">2412 7512 3412 3456</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500">Holder Name</span>
+                    <span class="text-gray-900 font-medium">Harshit</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500">IFSC Code</span>
+                    <span class="text-gray-900 font-medium">SBIN0005104</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <p class="text-orange-500 text-sm mb-8">
+            Deposit the mentioned amount to the provided bank details. After transfer, enter the reference number and upload the screenshot.
+        </p>
+
+        <!-- Reference Number Input -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Reference Number</label>
+            <input 
+                type="text" 
+                placeholder="Enter reference number"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+        </div>
+
+        <!-- Upload Section -->
+        <div class="mb-8">
+            <label for="upload" class="upload-box rounded-xl p-4 flex items-center justify-center cursor-pointer">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12"/>
+                    </svg>
+                    <span class="text-gray-400">Upload photo of deposit slip</span>
+                </div>
+                <input type="file" id="upload" class="hidden" accept="image/*"/>
+            </label>
+        </div>
+
+        <!-- Confirm Button -->
+        <button class="w-full bg-indigo-500 text-white py-4 rounded-full text-lg font-medium hover:bg-indigo-600 transition-colors mb-8">
+            Confirm
+        </button>
+    </main>
+
+    <script>
+        // Handle file upload
+        const uploadInput = document.getElementById('upload');
+        const uploadLabel = document.querySelector('.upload-box');
+
+        uploadInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                uploadLabel.querySelector('span').textContent = fileName;
+            }
+        });
+    </script>
+</body>
+</html>

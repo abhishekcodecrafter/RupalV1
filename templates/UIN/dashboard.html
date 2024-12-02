@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PayOn Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen pb-20">
+
+    <!-- Main Content -->
+    <div class="px-4 pt-6">
+        <!-- Header -->
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <p class="text-sm mb-1">Welcome back 👋</p>
+                <h1 class="text-2xl font-semibold">Harshit</h1>
+            </div>
+            <button class="p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+            </button>
+        </div>
+
+      <!-- Balance Card -->
+<div class="bg-white p-4 rounded-2xl shadow-sm mb-6">
+    <div class="flex flex-col">
+        <!-- Balance Section -->
+        <div class="mb-4">
+            <span class="text-gray-400 text-sm">Balance</span>
+            <div class="flex items-center mt-1">
+                <span id="wallet_balance" class="text-2xl font-semibold mr-2"></span>
+                <button id="toggleBalance">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="bg-[#6366F1] rounded-xl p-3">
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="window.location.href='./depositusdt.html'" class="flex items-center justify-center bg-white bg-opacity-20 rounded-lg py-2 px-4">
+                    <span class="text-white text-sm font-medium">+ Add</span>
+                </button>
+                <button onclick="window.location.href='./transferusdt.html'" class="flex items-center justify-center bg-white bg-opacity-20 rounded-lg py-2 px-4">
+                    <span class="text-white text-sm font-medium">⇄ Transfer</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-4 gap-4 mb-8">
+            <button onclick="window.location.href='./buyusdt.html'" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-[#EEF2FF] rounded-full flex items-center justify-center mb-1">
+                    <span class="text-xl">🛍️</span>
+                </div>
+                <span class="text-sm">Buy</span>
+            </button>
+            <button onclick="window.location.href='./sellusdt.html'" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-[#EEF2FF] rounded-full flex items-center justify-center mb-1">
+                    <span class="text-xl">💱</span>
+                </div>
+                <span class="text-sm">Sell</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-[#EEF2FF] rounded-full flex items-center justify-center mb-1">
+                    <span class="text-xl">₹</span>
+                </div>
+                <span class="text-sm">Panel</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-[#EEF2FF] rounded-full flex items-center justify-center mb-1">
+                    <span class="text-xl">💰</span>
+                </div>
+                <span class="text-sm">Cash</span>
+            </button>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">Recent Activities</h2>
+                <button class="text-sm text-gray-500">See all</button>
+            </div>
+
+            <!-- Transaction List -->
+            <div id="transactionList" class="space-y-4">
+                <div class="flex items-center justify-between bg-white p-4 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium">Sarah Allen</p>
+                            <p class="text-sm text-gray-500">Project bonus</p>
+                        </div>
+                    </div>
+                    <span class="text-green-500 font-medium">+$300.00</span>
+                </div>
+
+                <div class="flex items-center justify-between bg-white p-4 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium">Riverside Theater</p>
+                            <p class="text-sm text-gray-500">Movie tickets</p>
+                        </div>
+                    </div>
+                    <span class="text-red-500 font-medium">-$13.00</span>
+                </div>
+
+                <div class="flex items-center justify-between bg-white p-4 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium">Daniel Jackson</p>
+                            <p class="text-sm text-gray-500">Payments</p>
+                        </div>
+                    </div>
+                    <span class="text-red-500 font-medium">-$25.00</span>
+                </div>
+            </div>
+
+          <!-- Promotional Banner -->
+<div id="promotionalBanner" class="rounded-xl overflow-hidden hidden">
+    <img src="./assets/firstdepositbanner.png" alt="First Deposit Banner" class="w-full h-auto"/>
+</div>
+
+    <!-- Bottom Navigation -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t py-3 px-6">
+        <div class="flex justify-between items-center">
+            <button class="flex flex-col items-center text-[#6366F1]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="text-xs mt-1">Home</span>
+            </button>
+            <button class="flex flex-col items-center text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="text-xs mt-1">Activities</span>
+            </button>
+            <button class="flex flex-col items-center text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span class="text-xs mt-1">Contacts</span>
+            </button>
+            <button class="flex flex-col items-center text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span class="text-xs mt-1">Account</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle balance visibility
+        const toggleBalance = document.getElementById('toggleBalance');
+const balanceAmount = document.getElementById('wallet_balance');
+const actualBalance = '1,234.56';
+let isHidden = true; // Start with true to show dots initially
+
+// Set dots initially
+balanceAmount.textContent = '••••••';
+
+toggleBalance.addEventListener('click', () => {
+    isHidden = !isHidden;
+    balanceAmount.textContent = isHidden ? '••••••' : actualBalance;
+});
+
+        // Toggle between transaction list and promotional banner
+const transactionList = document.getElementById('transactionList');
+const promotionalBanner = document.getElementById('promotionalBanner');
+let showTransactions = true;
+
+function toggleView() {
+    showTransactions = !showTransactions;
+    if (showTransactions) {
+        transactionList.classList.remove('hidden');
+        promotionalBanner.classList.add('hidden');
+    } else {
+        transactionList.classList.add('hidden');
+        promotionalBanner.classList.remove('hidden');
+    }
+}
+
+// Set initial state
+promotionalBanner.classList.remove('hidden');
+transactionList.classList.add('hidden');
+
+// Set interval to toggle between views every 5 seconds
+setInterval(toggleView, 5000);
+
+        // Call toggleView() to switch between views
+        // For demonstration, you can call this function when needed
+        // toggleView();
+    </script>
+</body>
+</html>

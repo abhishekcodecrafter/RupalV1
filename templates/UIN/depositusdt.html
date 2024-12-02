@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Deposit USDT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="px-4 py-4 flex items-center">
+        <button class="p-2 -ml-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <h1 class="text-xl font-semibold text-center flex-1 -ml-8">Deposit USDT</h1>
+    </header>
+
+    <!-- Main Content -->
+    <div class="px-4 pt-6">
+        <!-- QR Code -->
+        <div class="bg-white p-8 rounded-2xl shadow-sm mb-6 flex justify-center">
+            <img src="./assets/qr-code.png" alt="QR Code" class="w-48 h-48"/>
+        </div>
+
+        <!-- USDT Type Selection -->
+        <div class="mb-4">
+            <div class="bg-white rounded-2xl p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <span class="font-medium">USDT TRC20</span>
+                </div>
+                <span class="text-[#6366F1] text-sm">Coin</span>
+            </div>
+        </div>
+
+        <!-- Address Copy Section -->
+        <div class="mb-8">
+            <div class="bg-white rounded-2xl p-4">
+                <div class="flex items-center justify-between mb-1">
+                    <div class="flex-1 truncate text-gray-600 mr-4">TTr9ALPtabRbAYR6JUByB9spQUVktzRkdF</div>
+                    <button class="text-[#6366F1] text-sm border border-[#6366F1] rounded-full px-4 py-1">
+                        Copy Address
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="mb-8">
+            <h2 class="font-semibold mb-4">Note :</h2>
+            <ul class="space-y-3">
+                <li class="flex items-start gap-2">
+                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-black flex-shrink-0"></span>
+                    <span class="text-sm text-gray-600">THIS IS NOT ONE AND HOW IT CAN BE SONE FFF SUXSHHHSBBSB</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-black flex-shrink-0"></span>
+                    <span class="text-sm text-gray-600">THIS IS NOT ONE AND HOW IT CAN BE SONE FFF SUXSHHHSBBSB</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Continue Button -->
+        <div class="fixed bottom-6 left-4 right-4">
+            <button onclick="window.location.href='./depositusdthash.html'" class="w-full bg-indigo-500 text-white py-3.5 rounded-xl font-medium text-[15px]">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Copy to clipboard functionality
+        document.querySelector('button:contains("Copy Address")').addEventListener('click', () => {
+            navigator.clipboard.writeText('TTr9ALPtabRbAYR6JUByB9spQUVktzRkdF');
+            // You could add a tooltip or notification here to show it was copied
+        });
+    </script>
+</body>
+</html>

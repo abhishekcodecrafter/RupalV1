@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Deposit USDT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+        }
+        /* Custom styles for pixel perfect alignment */
+        .custom-header {
+            height: 52px;
+            border-bottom: 1px solid #F1F1F1;
+        }
+        .back-button {
+            margin-left: -4px;
+        }
+        .header-title {
+            margin-left: -24px;
+        }
+        .qr-wrapper {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .copy-button {
+            color: #6366F1;
+            border: 1px solid #6366F1;
+            padding: 4px 16px;
+            font-size: 13px;
+        }
+        .input-hash::placeholder {
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="custom-header px-4 flex items-center bg-white">
+        <button class="back-button p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <h1 class="header-title text-[17px] font-semibold flex-1 text-center">Deposit USDT</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-4">
+        <!-- QR Code Container -->
+        <div class="qr-wrapper flex justify-center">
+            <img src="./assets/qr-code.png" alt="QR Code" class="w-48 h-48"/>
+        </div>
+
+        <!-- USDT Network Selection -->
+        <div class="mb-4">
+            <div class="flex items-center justify-between bg-gray-50 rounded-2xl p-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                            <path d="M12 6v12M8 12h8" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="font-medium text-[15px]">USDT TRC20</span>
+                </div>
+                <span class="text-indigo-500 text-[13px]">Coin</span>
+            </div>
+        </div>
+
+        <!-- Wallet Address -->
+        <div class="bg-gray-50 rounded-2xl p-4 mb-4">
+            <div class="flex items-center justify-between">
+                <input type="text" value="TTr9ALPtabRbAYR6JUByB9spQUVktzRkdF" 
+                       class="flex-1 bg-transparent border-none outline-none text-gray-600 text-[14px] mr-2" readonly>
+                <button class="copy-button rounded-full">
+                    Copy
+                </button>
+            </div>
+        </div>
+
+        <!-- Transaction Hash Input -->
+        <div class="mb-6">
+            <div class="bg-gray-50 rounded-2xl p-4">
+                <label class="block text-[15px] text-gray-900 mb-2">Enter Transaction Hash</label>
+                <input type="text" placeholder="TTr9ALPtabRbAYR6JUByB9spQUVktzRkdF" 
+                       class="input-hash w-full bg-transparent border-none outline-none text-gray-600">
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="mb-20">
+            <h2 class="font-semibold text-[15px] mb-4">Note :</h2>
+            <ul class="space-y-3">
+                <li class="flex items-start gap-2">
+                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-black flex-shrink-0"></span>
+                    <span class="text-[13px] text-gray-600">THIS IS NOT ONE AND HOW IT CAN BE SONE FFF SUXSHHHSBBSB</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-black flex-shrink-0"></span>
+                    <span class="text-[13px] text-gray-600">THIS IS NOT ONE AND HOW IT CAN BE SONE FFF SUXSHHHSBBSB</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Continue Button -->
+        <div class="fixed bottom-6 left-4 right-4">
+            <button onclick="window.location.href='./depositstatus.html'" class="w-full bg-indigo-500 text-white py-3.5 rounded-xl font-medium text-[15px]">
+                Continue
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Copy address functionality
+        document.querySelector('.copy-button').addEventListener('click', function() {
+            const address = 'TTr9ALPtabRbAYR6JUByB9spQUVktzRkdF';
+            navigator.clipboard.writeText(address);
+            this.textContent = 'Copied!';
+            setTimeout(() => {
+                this.textContent = 'Copy Address';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

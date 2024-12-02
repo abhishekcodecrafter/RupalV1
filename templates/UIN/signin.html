@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayOn Sign In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .login-container {
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+        }
+        .otp-input {
+            width: 40px;
+            height: 48px;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 4px;
+        }
+    </style>
+</head>
+<body class="bg-[#6366F1] min-h-screen">
+    <!-- Header Section -->
+    <div class="pt-12 px-6 pb-24 text-center">
+        <img src="./assets/brand-logo.png" alt="PayOn Logo" class="w-16 h-16 mx-auto mb-4 object-contain">
+        <h1 class="text-white text-3xl font-semibold tracking-wide">PayOn</h1>
+    </div>
+
+    <!-- Login Form Section -->
+    <div class="login-container bg-white min-h-screen px-6 pt-8 pb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-8">Log in</h2>
+        
+        <form id="loginForm" class="space-y-6">
+            <!-- Mobile Number Field -->
+            <div class="space-y-2">
+                <label for="mobileNumber" class="block text-sm font-medium text-gray-700">Mobile Number</label>
+                <input 
+                    type="tel" 
+                    id="mobileNumber" 
+                    name="mobileNumber"
+                    placeholder="Enter Your Mobile Number"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:border-transparent"
+                    required
+                >
+            </div>
+
+            <!-- OTP Input Fields (initially hidden) -->
+            <div id="otpSection" class="space-y-4 hidden">
+                <p class="text-gray-700 mb-2 text-base">Enter OTP sent to your phone</p>
+                <div class="flex justify-between mb-4">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-input" maxlength="1">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-input" maxlength="1">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-input" maxlength="1">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-input" maxlength="1">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-input" maxlength="1">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-input" maxlength="1">
+                </div>
+                <div class="flex justify-between items-center">
+                    <button id="resendOtp" type="button" class="flex items-center justify-center text-[#6366F1] font-medium text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Resend Code
+                    </button>
+                    <button id="changeMobileNumber" type="button" class="text-[#6366F1] font-medium text-sm">
+                        Change Mobile Number
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login/Verify Button -->
+            <button 
+                id="actionButton"
+                type="submit" 
+                class="w-full bg-[#6366F1] text-white py-3 rounded-lg font-medium hover:bg-[#5558E6] transition-colors"
+            >
+                Get OTP
+            </button>
+        </form>
+
+        <!-- Sign Up Link -->
+        <p class="text-center mt-6 text-sm text-gray-600">
+            Don't have an account? 
+            <a href="./signup.html" class="text-[#6366F1] font-medium hover:underline">Sign up</a>
+        </p>
+    </div>
+
+    <script>
+        var loginForm = document.getElementById('loginForm');
+        var actionButton = document.getElementById('actionButton');
+        var mobileNumberInput = document.getElementById('mobileNumber');
+        var otpSection = document.getElementById('otpSection');
+        var resendOtp = document.getElementById('resendOtp');
+        var changeMobileNumber = document.getElementById('changeMobileNumber');
+        var otpInputs = document.querySelectorAll('.otp-input');
+        var isOtpSent = false;
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (!isOtpSent) {
+                // Send OTP
+                isOtpSent = true;
+                mobileNumberInput.disabled = true;
+                otpSection.classList.remove('hidden');
+                actionButton.textContent = 'Verify OTP';
+                // Here you would typically make an API call to send the OTP
+                alert('OTP sent to ' + mobileNumberInput.value);
+                // Focus on the first OTP input after a short delay
+                setTimeout(() => {
+                    otpInputs[0].focus();
+                }, 100);
+            } else {
+                // Verify OTP
+                var otp = Array.from(otpInputs).map(input => input.value).join('');
+                // Here you would typically make an API call to verify the OTP
+                alert('Verifying OTP: ' + otp);
+                // If verification is successful, redirect to dashboard
+                window.location.href = "./dashboard.html";
+            }
+        });
+
+        resendOtp.addEventListener('click', function() {
+            // Here you would typically make an API call to resend the OTP
+            alert('OTP resent to ' + mobileNumberInput.value);
+            // Clear and focus on the first OTP input
+            otpInputs.forEach(input => input.value = '');
+            otpInputs[0].focus();
+        });
+
+        changeMobileNumber.addEventListener('click', function() {
+            isOtpSent = false;
+            mobileNumberInput.disabled = false;
+            otpSection.classList.add('hidden');
+            actionButton.textContent = 'Get OTP';
+            mobileNumberInput.focus();
+            // Clear OTP inputs
+            otpInputs.forEach(input => input.value = '');
+        });
+
+        // Auto-focus next input in OTP
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                // Ensure only numbers are entered
+                this.value = this.value.replace(/[^0-9]/g, '');
+
+                if (this.value.length === this.maxLength) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    } else {
+                        actionButton.focus(); // Focus on submit button after last input
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && !this.value) {
+                    if (index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                }
+            });
+
+            // Paste OTP handling
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text');
+                const otpRegex = /^\d{6}$/; // Regex to match exactly 6 digits
+
+                if (otpRegex.test(pastedData)) {
+                    otpInputs.forEach((input, i) => {
+                        input.value = pastedData[i] || '';
+                    });
+                    actionButton.focus();
+                }
+            });
+        });
+
+        // Ensure OTP inputs are focusable when they become visible
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    if (!otpSection.classList.contains('hidden')) {
+                        otpInputs[0].focus();
+                    }
+                }
+            });
+        });
+
+        observer.observe(otpSection, { attributes: true });
+    </script>
+</body>
+</html>

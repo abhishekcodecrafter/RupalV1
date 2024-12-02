@@ -1,0 +1,42 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* Flash Messages */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.animate-fade-out {
+    animation: fadeOut 0.5s ease-out;
+}
+
+
+/* Login Page */
+.login-container {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+}
+
+/* Signup Page */
+.signup-container {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+}
+
+
+/* Verify-Otp Page */
+.otp-input {
+    width: 40px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 4px;
+}
+

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Transfer USDT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .pin-input:focus {
+            outline: none;
+            border-color: #6366F1;
+        }
+
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .bottom-sheet.active {
+            transform: translateY(0);
+        }
+
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <!-- Header -->
+    <header class="px-4 py-4 flex items-center">
+        <button class="p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <h1 class="text-xl font-semibold ml-4">Transfer USDT</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-4 pt-6">
+        <!-- Amount Display -->
+        <div class="border border-gray-200 rounded-2xl p-6 mb-8">
+            <div class="flex justify-between items-center">
+                <span class="text-4xl font-semibold">0.00</span>
+                <span class="text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full text-sm">USDT TRC 20</span>
+            </div>
+        </div>
+
+        <!-- Address Input -->
+        <div class="mb-8">
+            <label for="address" class="block text-gray-700 mb-2">Address</label>
+            <div class="relative">
+                <input 
+                    type="text" 
+                    id="address"
+                    placeholder="Enter USDT address"
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl"
+                />
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="mb-8">
+            <h2 class="text-gray-700 mb-4">Note :</h2>
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <span class="block w-1.5 h-1.5 mt-2 mr-2 bg-gray-500 rounded-full"></span>
+                    <span class="text-sm text-gray-600">THIS IS NOT ONE AND HOW IT CAN BE SONE FFF SUXSHHHSBBSB</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="block w-1.5 h-1.5 mt-2 mr-2 bg-gray-500 rounded-full"></span>
+                    <span class="text-sm text-gray-600">THIS IS NOT ONE AND HOW IT CAN BE SONE FFF SUXSHHHSBBSB</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Continue Button -->
+        <button id="showPinButton" class="w-full bg-indigo-500 text-white py-4 rounded-full text-lg font-medium hover:bg-indigo-600 transition-colors">
+            Continue
+        </button>
+    </main>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <!-- PIN Bottom Sheet -->
+    <div id="pinBottomSheet" class="bottom-sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 p-6">
+        <h2 class="text-xl font-semibold text-center mb-8">Enter your pin</h2>
+        
+        <!-- PIN Input Container -->
+        <div class="flex justify-between mb-8 gap-2">
+            <input type="text" maxlength="1" class="pin-input w-12 h-12 border-2 border-gray-200 rounded-lg text-center text-xl" />
+            <input type="text" maxlength="1" class="pin-input w-12 h-12 border-2 border-gray-200 rounded-lg text-center text-xl" />
+            <input type="text" maxlength="1" class="pin-input w-12 h-12 border-2 border-gray-200 rounded-lg text-center text-xl" />
+            <input type="text" maxlength="1" class="pin-input w-12 h-12 border-2 border-gray-200 rounded-lg text-center text-xl" />
+            <input type="text" maxlength="1" class="pin-input w-12 h-12 border-2 border-gray-200 rounded-lg text-center text-xl" />
+            <input type="text" maxlength="1" class="pin-input w-12 h-12 border-2 border-gray-200 rounded-lg text-center text-xl" />
+        </div>
+
+        <!-- Verify Button -->
+        <button id="verifyButton" disabled class="w-full bg-indigo-500 bg-opacity-50 text-white py-4 rounded-full text-lg font-medium transition-all duration-300">
+            <span id="buttonText">Confirm</span>
+            <span id="loadingText" class="hidden">
+                <svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Verifying
+            </span>
+        </button>
+    </div>
+
+    <script>
+        // Elements
+        const showPinButton = document.getElementById('showPinButton');
+        const pinBottomSheet = document.getElementById('pinBottomSheet');
+        const overlay = document.getElementById('overlay');
+        const pinInputs = document.querySelectorAll('.pin-input');
+        const verifyButton = document.getElementById('verifyButton');
+        const buttonText = document.getElementById('buttonText');
+        const loadingText = document.getElementById('loadingText');
+
+        // Show PIN bottom sheet
+        showPinButton.addEventListener('click', () => {
+            pinBottomSheet.classList.add('active');
+            overlay.classList.add('active');
+            pinInputs[0].focus();
+        });
+
+        // Hide PIN bottom sheet when clicking overlay
+        overlay.addEventListener('click', () => {
+            pinBottomSheet.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Handle PIN input
+        pinInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value) {
+                    if (index < pinInputs.length - 1) {
+                        pinInputs[index + 1].focus();
+                    }
+                }
+                
+                // Check if all inputs are filled
+                const allFilled = Array.from(pinInputs).every(input => input.value.length === 1);
+                verifyButton.disabled = !allFilled;
+                verifyButton.classList.toggle('bg-opacity-50', !allFilled);
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    pinInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Handle verify button click
+        verifyButton.addEventListener('click', async () => {
+            buttonText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+            verifyButton.disabled = true;
+
+            // Simulate verification delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Reset the form
+            buttonText.classList.remove('hidden');
+            loadingText.classList.add('hidden');
+            pinInputs.forEach(input => input.value = '');
+            verifyButton.disabled = true;
+            verifyButton.classList.add('bg-opacity-50');
+            
+            // Hide bottom sheet
+            pinBottomSheet.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
